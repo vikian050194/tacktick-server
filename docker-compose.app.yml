@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  tacktick-service:
+    depends_on:
+      - tacktick-db
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./src/main/resources
+        target: /usr/src/app/src/main/resources

@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  tacktick-db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=tacktick
+    ports:
+      - 5432:5432
