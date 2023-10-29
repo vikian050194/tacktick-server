@@ -1,8 +1,7 @@
 package tacktick.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "arena")
@@ -12,17 +11,26 @@ public class Arena {
 
     }
 
-    public Arena(String name) {
+    public Arena(String name, long height, long width) {
         this.name = name;
+        this.height = height;
+        this.width = width;
     }
 
-    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public long id;
 
-    @JsonProperty("name")
-    @NotBlank(message = "Name is mandatory")
     @Column(name = "name", nullable = false)
     public String name;
+
+    @Column(name = "height", nullable = false)
+    public long height;
+
+    @Column(name = "width", nullable = false)
+    public long width;
+
+    @OneToMany()
+    @JoinColumn(name = "arena_id")
+    public Collection<Prop> props;
 }

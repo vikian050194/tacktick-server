@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `game`, `arena` DB entities
+- `game`, `arena`, `user`, `player` and `prop` DB entities
 
-[Unreleased]: https://github.com/vikian050194/tacktick-client/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/vikian050194/tacktick-client/releases/tag/v0.1.0
+[Unreleased]: https://github.com/vikian050194/tart/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/vikian050194/tart/releases/tag/v0.1.0
