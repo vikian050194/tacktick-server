@@ -41,27 +41,27 @@ public class App {
             return;
         }
 
-        var user1 = userRepository.save(new User("user 1"));
-        var user2 = userRepository.save(new User("user 2"));
-        var user3 = userRepository.save(new User("user 3"));
-        var user4 = userRepository.save(new User("user 4"));
+        var user1 = userRepository.save(new UserModel("user 1"));
+        var user2 = userRepository.save(new UserModel("user 2"));
+        var user3 = userRepository.save(new UserModel("user 3"));
+        var user4 = userRepository.save(new UserModel("user 4"));
 
-        var game = new Game("game 1");
+        var game = new GameModel("game 1");
 
-        var arena = new Arena("arena 1", 6, 6);
+        var arena = new ArenaModel("arena 1", 6, 6);
         arena = arenaRepository.save(arena);
         game.arena = arena;
-        gameRepository.save(game);
+        game = gameRepository.save(game);
 
-        var props = new HashSet<Prop>();
-        props.add(new Prop(PropType.Spawn, 0, 0));
-        props.add(new Prop(PropType.Spawn, 5, 5));
-        props.add(new Prop(PropType.Spawn, 0, 5));
-        props.add(new Prop(PropType.Spawn, 5, 0));
-        props.add(new Prop(PropType.Wall, 2, 2));
-        props.add(new Prop(PropType.Wall, 4, 4));
-        props.add(new Prop(PropType.Wall, 2, 4));
-        props.add(new Prop(PropType.Wall, 4, 2));
+        var props = new HashSet<PropModel>();
+        props.add(new PropModel(PropModel.Type.SPAWN, 0, 0));
+        props.add(new PropModel(PropModel.Type.SPAWN, 5, 5));
+        props.add(new PropModel(PropModel.Type.SPAWN, 0, 5));
+        props.add(new PropModel(PropModel.Type.SPAWN, 5, 0));
+        props.add(new PropModel(PropModel.Type.WALL, 2, 2));
+        props.add(new PropModel(PropModel.Type.WALL, 4, 4));
+        props.add(new PropModel(PropModel.Type.WALL, 2, 4));
+        props.add(new PropModel(PropModel.Type.WALL, 4, 2));
 
         propRepository.saveAll(props);
         arena.props = props;

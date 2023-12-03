@@ -5,15 +5,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "game")
-public class Game {
+public class GameModel {
 
-    public Game() {
+    public enum Status {
+        CREATED,
+        STARTED,
+        FINISHED
+    }
+
+    public GameModel() {
 
     }
 
-    public Game(String name) {
+    public GameModel(String name) {
         this.name = name;
-        this.status = GameStatus.Created;
+        this.status = Status.CREATED;
     }
 
     @Id
@@ -24,7 +30,7 @@ public class Game {
     public String name;
 
     @Column(name = "status", nullable = false)
-    public GameStatus status;
+    public Status status;
 
     @Column(name = "round", nullable = false)
     public long round;
@@ -34,9 +40,9 @@ public class Game {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "arena_id")
-    public Arena arena;
+    public ArenaModel arena;
 
     @OneToMany()
     @JoinColumn(name = "game_id")
-    private Collection<Player> players;
+    private Collection<PlayerModel> players;
 }

@@ -5,28 +5,29 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tacktick.exceptions.NotFoundException;
-import tacktick.models.GameModel;
-import tacktick.repositories.GameRepository;
+import tacktick.models.ArenaModel;
+import tacktick.repositories.ArenaRepository;
 
 @RestController
-@RequestMapping("/games")
-public class GameController {
+@RequestMapping("/arenas")
+public class ArenaController {
 
-    public GameController(GameRepository repository) {
+    public ArenaController(ArenaRepository repository) {
         this.repository = repository;
     }
 
-    private final GameRepository repository;
+    // TODO Injection via @Autowire or constructor?
+    private final ArenaRepository repository;
 
     @GetMapping("")
     @ResponseStatus(value = HttpStatus.OK)
-    public Iterable<GameModel> getGames() {
+    public Iterable<ArenaModel> getArenas() {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public GameModel getGame(
+    public ArenaModel getArena(
             @PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(NotFoundException::new);
@@ -34,29 +35,29 @@ public class GameController {
 
     @PostMapping("")
     @ResponseStatus(value = HttpStatus.OK)
-    public GameModel addGame(@Valid @RequestBody GameModel game) {
-        return repository.save(game);
+    public ArenaModel addArena(@Valid @RequestBody ArenaModel arena) {
+        return repository.save(arena);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public GameModel updateGame(
+    public ArenaModel updateGame(
             @PathVariable Long id,
-            @Valid @RequestBody GameModel inputGame) {
-        GameModel game = repository.findById(id)
+            @Valid @RequestBody ArenaModel inputArena) {
+        ArenaModel arena = repository.findById(id)
                 .orElseThrow(NotFoundException::new);
 
-        game.name = inputGame.name;
-        return repository.save(game);
+        arena.name = inputArena.name;
+        return repository.save(arena);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteGame(
+    public void deleteArena(
             @PathVariable Long id) {
-        GameModel game = repository.findById(id)
+        ArenaModel arena = repository.findById(id)
                 .orElseThrow(NotFoundException::new);
 
-        repository.delete(game);
+        repository.delete(arena);
     }
 }

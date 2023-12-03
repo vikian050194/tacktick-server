@@ -4,13 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "prop")
-public class Prop {
+public class PropModel {
 
-    public Prop() {
+    public enum Type {
+        SPAWN,
+        WALL
+    }
+
+    public PropModel() {
 
     }
 
-    public Prop(PropType type, long x, long y) {
+    public PropModel(Type type, long x, long y) {
         this.type = type;
         this.x = x;
         this.y = y;
@@ -21,7 +26,7 @@ public class Prop {
     public long id;
 
     @Column(name = "type", nullable = false)
-    public PropType type;
+    public Type type;
 
     @Column(name = "x", nullable = false)
     public long x;

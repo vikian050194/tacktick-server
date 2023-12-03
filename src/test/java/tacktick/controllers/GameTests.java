@@ -4,25 +4,25 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.*;
-import tacktick.models.Game;
+import tacktick.models.GameModel;
 
 public class GameTests extends BaseTest {
 
     @Test
     public void getAllGames() {
         // Arrange
-        Game game = new Game("foo");
+        GameModel game = new GameModel("foo");
         repository.save(game);
 
         // Act
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>("", headers);
-        ResponseEntity<Game[]> response = restTemplate.exchange("/games", HttpMethod.GET, entity, Game[].class);
+        ResponseEntity<GameModel[]> response = restTemplate.exchange("/games", HttpMethod.GET, entity, GameModel[].class);
 
         // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Game[] body = response.getBody();
+        GameModel[] body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.length).isEqualTo(1);
         assertThat(body[0].name).isEqualTo("foo");
@@ -31,21 +31,21 @@ public class GameTests extends BaseTest {
     @Test
     public void createNewGame() {
         // Arrange
-        Game game = new Game("foo");
+        GameModel game = new GameModel("foo");
 
         // Act
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Game> entity = new HttpEntity<>(game, headers);
-        ResponseEntity<Game> response = restTemplate.exchange("/games", HttpMethod.POST, entity, Game.class);
+        HttpEntity<GameModel> entity = new HttpEntity<>(game, headers);
+        ResponseEntity<GameModel> response = restTemplate.exchange("/games", HttpMethod.POST, entity, GameModel.class);
 
         // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Game body = response.getBody();
+        GameModel body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.name).isEqualTo("foo");
 
-        List<Game> games = repository.findAll();
+        List<GameModel> games = repository.findAll();
         assertThat(games.size()).isEqualTo(1);
         assertThat(games.get(0).name).isEqualTo("foo");
     }
@@ -53,26 +53,26 @@ public class GameTests extends BaseTest {
     @Test
     public void updateGame() {
         // Arrange
-        Game game = new Game("foo");
-        Game initialGame = repository.save(game);
+        GameModel game = new GameModel("foo");
+        GameModel initialGame = repository.save(game);
 
         // Act
-        Game updatedGame = new Game("bar");
+        GameModel updatedGame = new GameModel("bar");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Game> entity = new HttpEntity<>(updatedGame, headers);
+        HttpEntity<GameModel> entity = new HttpEntity<>(updatedGame, headers);
         String url = String.format("/games/%s", initialGame.id);
-        ResponseEntity<Game> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Game.class);
+        ResponseEntity<GameModel> response = restTemplate.exchange(url, HttpMethod.PUT, entity, GameModel.class);
 
         // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.hasBody()).isTrue();
-        Game body = response.getBody();
+        GameModel body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.name).isEqualTo("bar");
 
-        List<Game> games = repository.findAll();
+        List<GameModel> games = repository.findAll();
         assertThat(games.size()).isEqualTo(1);
         assertThat(games.get(0).name).isEqualTo("bar");
     }
@@ -80,12 +80,12 @@ public class GameTests extends BaseTest {
     @Test
     public void updateWrongGame() {
         // Act
-        Game updatedGame = new Game("bar");
+        GameModel updatedGame = new GameModel("bar");
 
         int wrongGameId = 1;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Game> entity = new HttpEntity<>(updatedGame, headers);
+        HttpEntity<GameModel> entity = new HttpEntity<>(updatedGame, headers);
         String url = String.format("/games/%s", wrongGameId);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
 
@@ -98,8 +98,8 @@ public class GameTests extends BaseTest {
     @Test
     public void deleteGame() {
         // Arrange
-        Game game = new Game("foo");
-        Game savedGame = repository.save(game);
+        GameModel game = new GameModel("foo");
+        GameModel savedGame = repository.save(game);
 
         // Act
         HttpHeaders headers = new HttpHeaders();
@@ -112,7 +112,7 @@ public class GameTests extends BaseTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.hasBody()).isFalse();
 
-        List<Game> games = repository.findAll();
+        List<GameModel> games = repository.findAll();
         assertThat(games.size()).isEqualTo(0);
     }
 

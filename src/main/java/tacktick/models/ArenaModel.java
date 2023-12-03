@@ -5,13 +5,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "arena")
-public class Arena {
+public class ArenaModel {
 
-    public Arena() {
+    public ArenaModel() {
 
     }
 
-    public Arena(String name, long height, long width) {
+    public ArenaModel(String name, long height, long width) {
         this.name = name;
         this.height = height;
         this.width = width;
@@ -32,5 +32,5 @@ public class Arena {
 
     @OneToMany()
     @JoinColumn(name = "arena_id")
-    public Collection<Prop> props;
+    public Collection<PropModel> props;
 }

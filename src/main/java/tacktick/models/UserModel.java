@@ -5,13 +5,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserModel {
 
-    public User() {
+    public UserModel() {
 
     }
 
-    public User(String name) {
+    public UserModel(String name) {
         this.name = name;
     }
 
@@ -24,5 +24,5 @@ public class User {
 
     @OneToMany()
     @JoinColumn(name = "user_id")
-    private Collection<Player> players;
+    private Collection<PlayerModel> players;
 }

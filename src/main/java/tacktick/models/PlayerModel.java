@@ -4,9 +4,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "player")
-public class Player {
+public class PlayerModel {
 
-    public Player() {
+    public enum Status {
+        DRAFT,
+        ALIVE,
+        DEAD,
+    }
+
+    public enum Action {
+        EMPTY,
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+    }
+
+    public PlayerModel() {
 
     }
 
@@ -28,4 +42,10 @@ public class Player {
 
     @Column(name = "y", nullable = false)
     public long y;
+
+    @Column(name = "status", nullable = false)
+    public Status status;
+
+    @Column(name = "action", nullable = false)
+    public Action action;
 }
