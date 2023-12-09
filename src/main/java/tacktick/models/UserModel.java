@@ -22,7 +22,8 @@ public class UserModel {
     @Column(name = "name", nullable = false)
     public String name;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
-    private Collection<PlayerModel> players;
+    // TODO public or private?
+    public Collection<PlayerModel> players;
 }

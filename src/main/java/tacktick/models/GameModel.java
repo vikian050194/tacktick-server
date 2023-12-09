@@ -42,7 +42,7 @@ public class GameModel {
     @JoinColumn(name = "arena_id")
     public ArenaModel arena;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "game_id")
-    private Collection<PlayerModel> players;
+    public Collection<PlayerModel> players;
 }

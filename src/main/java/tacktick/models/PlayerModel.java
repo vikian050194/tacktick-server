@@ -34,14 +34,17 @@ public class PlayerModel {
     @Column(name = "tick", nullable = false)
     public long tick;
 
-    @Column(name = "hp", nullable = false)
-    public long hp;
+    @Column(name = "health", nullable = false)
+    public long health;
 
     @Column(name = "x", nullable = false)
     public long x;
 
     @Column(name = "y", nullable = false)
     public long y;
+
+    @Column(name = "user_id", nullable = false)
+    public long userId;
 
     @Column(name = "status", nullable = false)
     public Status status;
